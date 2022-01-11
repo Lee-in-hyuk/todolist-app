@@ -1,9 +1,29 @@
-import { useState } from 'react';
+import { useReducer, useState } from 'react';
 import { MdCreate } from "react-icons/md";
 import './TodoInsert.scss';
 
+// function reducer(state,action){
+//     if(action.type === 'CHANGE'){
+//         return {
+//             ...state,
+//             inputs: {
+                
+//             }
+//         }
+//     }
+// }
+
 export default function TodoInsert({ onInsert }){
     const [ value, setValue ] = useState('');
+    // const [ state, dispatch ] = useReducer(reducer, todoState);
+    // function onChange(e){
+    //     const { txt,value } = e.target;
+    //     dispatch({
+    //         type:'CHANGE',
+    //         text:txt,
+    //         value:value
+    //     })
+    // }
     function onChange(e){
         setValue(e.target.value);
     }

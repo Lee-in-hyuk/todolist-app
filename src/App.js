@@ -1,10 +1,93 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useReducer } from 'react';
 import './App.css';
 import TodoTemplate from './components/TodoTemplate';
 import TodoInsert from './components/TodoInsert';
 import TodoList from './components/TodoList';
-function App() {
 
+// //useState를 redux로 만들기
+// const todoState = {
+//   inputs: { text:'' },
+//   todos : [
+//     {
+//       id:1,
+//       text: '리액트의 기초 알아보기',
+//       checked: true,
+//     },
+//     {
+//       id:2,
+//       text: '컴포넌트 스타일 해보기',
+//       checked: false,
+//     },
+//     {
+//       id:3,
+//       text: '일정관리 앱 만들어보기',
+//       checked: false,
+//     }
+//   ]
+// }
+// function reducer(state,action){
+//   if(action.type === 'INSERT'){
+//     return {
+//       ...state,
+//       todos: [
+//         ...state.todos,
+//         action.todo
+//       ]
+//     }
+//   }else if(action.type === 'DELETE'){
+//     return {
+//       ...state,
+//       todos: [
+//         ...state.todos.filter((todo)=>todo.id !== action.id)
+//       ]
+//     }
+//   }else if(action.type === 'CHECKED'){
+//     return {
+//       ...state,
+//       todos: [
+//         ...state.todos.map((todo)=>todo.id === action.id ? {...todo, checked: !todo.checked } : todo)
+//       ]
+//     }
+//   }
+//   else return state;
+// }
+
+function App() {
+  //redux로 만든거
+  // const [ state, dispatch ] = useReducer(reducer, todoState);
+  // const { todos } = state;
+  // const { txt } = state.inputs;
+  // const nextId = useRef(4);
+  // function onInsert(){
+  //   dispatch({
+  //     type:'INSERT',
+  //     todo: {
+  //       id:nextId.current,
+  //       text : txt,
+  //       checked: false
+  //     }
+  //   })
+  //   nextId.current += 1;
+  //   //-> nextId.current = nextId.current+1;
+  // }
+  // //해당 id항목 삭제하기
+  // function onRemove(id){
+  //   dispatch({
+  //     type:'DELETE',
+  //     id
+  //   })
+  // }
+
+  // //해당 id항목 checked반전
+  // function onToggle(id){
+  //   dispatch({
+  //     type:'CHECKED',
+  //     id
+  //   })
+  // }
+
+  ///////////////////////////////////////////////////////////////////////////
+  //useState로 만든거
   const [todos, setTodos ] = useState([
     {
       id:1,
@@ -37,7 +120,7 @@ function App() {
     //-> nextId.current = nextId.current+1;
   }
 
-  //해당 id항목 삭제하기
+  // 해당 id항목 삭제하기
   function onRemove(id){
     setTodos(todos.filter(todo => todo.id !== id));
     //id파라미터는 ListItem.js에 있는 삭제버튼을 클릭했을 때 실행되는 파라미터이고,
@@ -56,7 +139,7 @@ function App() {
   return (
     <div className="App">
       <TodoTemplate>
-        <TodoInsert onInsert={onInsert} />
+        <TodoInsert onInsert={onInsert}/>
         <TodoList todos={todos} onRemove={onRemove} onToggle={onToggle}/>
       </TodoTemplate>
     </div>
